@@ -22,9 +22,6 @@ on:
   push:
     paths-ignore:
       - 'Documentation/**'
-    branches:
-      - master
-      - 'releases/*'
 
 permissions:
   contents: read
