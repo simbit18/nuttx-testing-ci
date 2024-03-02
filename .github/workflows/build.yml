@@ -77,32 +77,6 @@ jobs:
         with:
           name: source-bundle
           path: sources.tar.gz
-
-      - name: Tar sources
-        run: tar zcf sources.tar.gz sources
-
-      - name: Archive Source Bundle
-        uses: actions/upload-artifact@v4
-        with:
-          name: source-bundle
-          path: sources.tar.gz
-      - name: Checkout apps repo
-        uses: actions/checkout@v4
-        with:
-          repository: apache/nuttx-apps
-          ref: ${{ steps.gittargets.outputs.apps_ref }}
-          path: sources/apps
-          fetch-depth: 1
-
-      - name: Tar sources
-        run: tar zcf sources.tar.gz sources
-
-      - name: Archive Source Bundle
-        uses: actions/upload-artifact@v3
-        with:
-          name: source-bundle
-          path: sources.tar.gz
-
   Linux:
     needs: Fetch-Source
     runs-on: ubuntu-latest
