@@ -43,62 +43,49 @@ jobs:
         run: |
           OS_REF=""
           APPS_REF=""
-
-          REF=$GITHUB_REF
-
-          # If a base ref is set this is a PR and we will want to use
-          # the base ref instead of the ref that triggered the event
-          if [ ${GITHUB_BASE_REF} ]; then
-            REF=refs/heads/$GITHUB_BASE_REF
-          fi
-
+          # REF="refs/heads/simbit18-platforms"
+          REF="refs/heads/simbit18-20240221"
+          # REF="refs/heads/master"
           echo "Working with ref: $REF"
-
-          # We modify for all tags and release branches
-          if [[ $REF =~ refs/heads/releases/*|refs/tags/* ]]; then
-            if [[ $REF =~ refs/heads/* ]]
-              then
-                REF_NAME=${REF##refs/heads/}
-                echo "Working with a branch: $REF_NAME"
-              else
-                REF_NAME=${REF##refs/tags/}
-                echo "Working with a tag: $REF_NAME"
-            fi
-
-            # Determine the repo and leave that unset to use the normal checkout behavior
-            # of using the merge commit instead of HEAD
-            case $GITHUB_REPOSITORY in
-              "apache/nuttx")
-                # OS
-                echo "Triggered by change in OS"
-                APPS_REF=$REF_NAME
-                ;;
-
-              "apache/nuttx-apps" )
-                # APPS
-                OS_REF=$REF_NAME
-                echo "Triggered by change in APPS"
-                ;;
-
-              *)
-                echo "Trigger by change on $GITHUB_REPOSITORY. This is unexpected."
-                ;;
-            esac
-          fi
-
-          echo "name=$OS_REF" >> $GITHUB_OUTPUT
-          echo "app_ref=$APPS_REF" >> $GITHUB_OUTPUT
-
       - name: Checkout nuttx repo
         uses: actions/checkout@v4
         with:
-          repository: apache/nuttx
-          ref: ${{ steps.gittargets.outputs.os_ref }}
+          repository: simbit18/nuttx
+          # ref: simbit18-platforms
+          ref: simbit18-20240221
+          # ref:  master
           path: sources/nuttx
           fetch-depth: 1
       - name: Checkout nuttx repo tags
         run: git -C sources/nuttx fetch --tags
 
+      - name: Checkout apps repo
+        uses: actions/checkout@v4
+        with:
+          repository: simbit18/nuttx-apps
+          # ref: simbit18-platforms
+          ref: simbit18-20240221
+          # ref: master
+          path: sources/apps
+          fetch-depth: 1
+
+      - name: Tar sources
+        run: tar zcf sources.tar.gz sources
+
+      - name: Archive Source Bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: source-bundle
+          path: sources.tar.gz
+
+      - name: Tar sources
+        run: tar zcf sources.tar.gz sources
+
+      - name: Archive Source Bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: source-bundle
+          path: sources.tar.gz
       - name: Checkout apps repo
         uses: actions/checkout@v4
         with:
