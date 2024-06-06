@@ -33,7 +33,3 @@ jobs:
       - name: Docker Pull
         run: docker pull ghcr.io/simbit18/nuttx-testing-ci/apache-nuttx-ci-linux
       - name: Run builds
-        uses: .github/actions/ci-container
-        with:
-          run: |
-            gcc --version
