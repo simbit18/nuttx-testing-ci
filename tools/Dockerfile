@@ -127,7 +127,7 @@ RUN apt-get update -qq && DEBIAN_FRONTEND="noninteractive" apt-get install -y -q
   git
 # Clone Main Repository 
 RUN mkdir -p gcc-avr32-gnu && \
-  git clone --depth 1 https://github.com/ramangopalan/avr32-gnu-toolchain-linux_x86 gcc-avr32-gnu && \
+  git clone --depth 1 https://github.com/ramangopalan/avr32-gnu-toolchain-linux_x86 gcc-avr32-gnu
 
 ###############################################################################
 # Build image for tool required by Pinguino builds
