@@ -1,0 +1,46 @@
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+name: Docker Test
+
+on:      
+  workflow_dispatch:    
+  push:
+    paths:
+      - '.github/workflows/dockerfile_test.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  Linux:
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_BUILDKIT: 1
+
+    steps:
+      - name: Docker Login
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Docker Pull
+        run: docker pull ghcr.io/simbit18/nuttx-testing-ci/apache-nuttx-ci-linux
+      - name: Run builds
+        with:
+          run: |
+            gcc --version
+
+
+ 
