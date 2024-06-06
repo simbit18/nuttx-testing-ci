@@ -26,7 +26,7 @@ on:
   # Run builds for any PRs.
   pull_request:
     paths:
-      - 'tools/ci/docker/linux/**'
+      - 'tools/**'
       - '.github/workflows/docker_linux.yml'
 
 env:
