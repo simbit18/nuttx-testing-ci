@@ -34,4 +34,4 @@ jobs:
         run: docker pull ghcr.io/simbit18/nuttx-testing-ci/apache-nuttx-ci-linux
       - name: Run builds
         run: |
-            avr32-gcc -v
+            avr32-gcc –version
