@@ -22,8 +22,6 @@ on:
   push:
     paths:
       - '.github/workflows/build_avr32.yml'
-    paths-ignore:
-      - 'Documentation/**'
 
 permissions:
   contents: read
