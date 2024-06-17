@@ -10,7 +10,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-name: Build
+name: Build AVR32
 
 on:
   workflow_dispatch:    
@@ -103,6 +103,6 @@ jobs:
       - uses: actions/upload-artifact@v3
         if: ${{ always() }}
         with:
-          name: linux-builds
+          name: linux-avr32-builds
           path: buildartifacts/
         continue-on-error: true
