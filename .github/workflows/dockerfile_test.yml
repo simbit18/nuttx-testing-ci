@@ -27,32 +27,22 @@ jobs:
     steps:
       - name: System Information
         run: |
-          ## system_profiler SPSoftwareDataType
           bash --version
           uname -a
       - name: Set Environment Variables
         run: |
           echo "$GITHUB_PATH"
           echo "$PATH"
-          arm-none-eabi-gcc --version
-          aarch64-none-elf-gcc --version
-          avr32-gcc --version
+          # arm-none-eabi-gcc --version
+          # aarch64-none-elf-gcc --version
       - name: Checkout Source Files
         run: |
           echo 'Checkout Source Files'
           mkdir nuttxspace
           ls -a
           cd nuttxspace
-          ## git clone https://github.com/apache/incubator-nuttx nuttx
-          ## git clone https://github.com/apache/incubator-nuttx-apps apps
           git clone --depth 1 https://github.com/ramangopalan/nuttx.git nuttx
           git clone --depth 1 https://github.com/ramangopalan/nuttx-apps.git apps
-          ## curl -L https://www.apache.org/dyn/closer.lua/nuttx/12.0.0/apache-nuttx-12.0.0.tar.gz?action=download -o nuttx.tar.gz
-          ## curl -L https://www.apache.org/dyn/closer.lua/nuttx/12.0.0/apache-nuttx-apps-12.0.0.tar.gz?action=download -o apps.tar.gz
-          ## tar zxf nuttx.tar.gz --one-top-level=nuttx --strip-components 1
-          ## tar zxf apps.tar.gz --one-top-level=apps --strip-components 1
-          ## ls -a
-          ## cd nuttx
           ls -a
 
       - name: Build
@@ -65,16 +55,16 @@ jobs:
 
           ## Show the GCC version
           gcc -v
-          ## ls -a ../../
-          ## cp -f ../../fix/1200/defconfig boards/sim/sim/sim/configs/nsh/defconfig
-          ## cp -f ../../fix/1200/sim_hostmisc.c arch/sim/src/sim/posix/sim_hostmisc.c
-          ## cp -f ../../fix/1200/lib_exit.c libs/libc/stdlib/lib_exit.c
-          
+
+          ## Show the avr32-gcc version
+          avr32-gcc --version
+          avr32-gcc -dumpspecs
+
           ## Configure the build
           ./tools/configure.sh -l mizar32a:nsh
-          
+
           ## mkdir nuttxmsys2
-          
+
           ## Preserve the build config
           ## cp .config nuttxmsys2/nuttx.config
           make -j 4
