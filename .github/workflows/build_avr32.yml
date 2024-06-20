@@ -96,8 +96,9 @@ jobs:
         run: |
           echo "::add-matcher::sources/nuttx/.github/gcc.json"
           export ARTIFACTDIR=`pwd`/buildartifacts
-          git config --global --add safe.directory /github/workspace/sources/nuttx
-          git config --global --add safe.directory /github/workspace/sources/apps
+          git config --global --add safe.directory '*'
+          ## git config --global --add safe.directory /github/workspace/sources/nuttx
+          ## git config --global --add safe.directory /github/workspace/sources/apps
           cd sources/nuttx/tools/ci
           if [ "X${{matrix.boards}}" = "Xcodechecker" ]; then
               ./cibuild.sh -c -A -R --codechecker testlist/${{matrix.boards}}.dat
