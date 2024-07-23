@@ -41,3 +41,30 @@ body:
       placeholder: "master, 12.5.1, ecc"
     validations:
       required: true
+
+  - type: dropdown
+    id: arch
+    attributes:
+      label: What Arch are you seeing the problem on?
+      multiple: true
+      options:
+        - all
+        - arm
+        - arm64
+        - avr
+        - ceva
+        - mips
+        - misoc
+        - ort1k
+        - renesas
+        - risc-v
+        - sim
+        - sparc
+        - tricore
+        - x86
+        - x86_64
+        - xtensa
+        - z16
+        - z80
+    validations:
+      required: true
