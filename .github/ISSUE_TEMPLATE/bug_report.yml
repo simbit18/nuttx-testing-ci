@@ -1,0 +1,61 @@
+name: NuttX issue template
+description: Submit a bug report.
+labels: [bug]
+body:
+  - type: textarea
+    attributes:
+      label: Description / Steps to reproduce the issue
+      description: A clear and concise description of what the bug is, and why you consider it to be a bug, and steps for how to reproduce it
+      placeholder: |
+        A description with steps to reproduce the issue.
+        May include logs, images, or videos.
+        1. Step 1
+        2. Step 2
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Expected behavior
+      description: A description of what you expected to happen.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Actual behavior
+      description: A description of what is actually happening.
+    validations:
+      required: true
+
+  - type: checkboxes
+    attributes:
+      label: Verification
+      description: | 
+        Please verify that you've followed these steps:
+          - Confirm the problem is reproducible on [**master**](https://github.com/apache/nuttx) or [**latest stable**] release
+          - Run `make distclean` when encountering build issues
+          - Search [existing issues](https://github.com/apache/nuttx/issues) (including [closed](https://github.com/apache/nuttx/issues?q=is%3Aissue+is%3Aclosed))
+          - Read the [FAQ](https://nuttx.apache.org/docs/latest/faq/index.html) and ["Reporting Problems" in CONTRIBUTING.md](https://nuttx.apache.org/docs/latest/contributing/index.html).
+      options:
+        - label: I have verified before submitting the report.
+          required: true
+
+   - type: input
+    attributes:
+      label: "Operating system/version"
+      placeholder: "Ubuntu 20.4, macOS 12, Windows/WSL, Windows/MSYS_NT-10.0-19045, ecc"
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: NuttX Version
+      placeholder: "master, 12.5.1, ecc)"
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: Are you willing to submit a PR?
+      description: We accept contributions!
