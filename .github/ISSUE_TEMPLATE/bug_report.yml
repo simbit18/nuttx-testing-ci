@@ -1,4 +1,4 @@
-name: Bug Report
+name: NuttX issue template
 description: Submit a bug report.
 labels: [bug]
 body:
@@ -8,6 +8,7 @@ body:
       description: A clear and concise description of what the bug is, and why you consider it to be a bug, and steps for how to reproduce it
       placeholder: |
         A description with steps to reproduce the issue.
+        May include logs, images, or videos.
         1. Step 1
         2. Step 2
     validations:
@@ -30,16 +31,27 @@ body:
   - type: checkboxes
     attributes:
       label: Verification
-      description: Please verify that you've followed these steps.
+      description: | 
+        Please verify that you've followed these steps:
+          - Confirm the problem is reproducible on [**master**](https://github.com/apache/nuttx) or [**latest stable**] release
+          - Run `make distclean` when encountering build issues
+          - Search [existing issues](https://github.com/apache/nuttx/issues) (including [closed](https://github.com/apache/nuttx/issues?q=is%3Aissue+is%3Aclosed))
+          - Read the [FAQ](https://nuttx.apache.org/docs/latest/faq/index.html) and ["Reporting Problems" in CONTRIBUTING.md](https://nuttx.apache.org/docs/latest/contributing/index.html).
       options:
-        - label: I have verified that my NuttX is up-to-date before submitting the report.
+        - label: I have verified before submitting the report.
           required: true
+
+   - type: input
+    attributes:
+      label: "Operating system/version"
+      placeholder: "Ubuntu 20.4, macOS 12, Windows/WSL, Windows/MSYS_NT-10.0-19045, ecc"
+    validations:
+      required: true
 
   - type: input
     attributes:
-      label: NuttX Version + OS
-      description: Please run `uname`.
-      placeholder: "Ver (12.5.1) + OS (Linux, Darwin, Msys2, ecc)"
+      label: NuttX Version
+      placeholder: "master, 12.5.1, ecc)"
     validations:
       required: true
 
