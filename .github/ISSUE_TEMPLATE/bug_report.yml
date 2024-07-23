@@ -2,6 +2,7 @@ name: NuttX issue template
 description: Submit a bug report.
 labels: [bug]
 body:
+
   - type: textarea
     attributes:
       label: Description / Steps to reproduce the issue
