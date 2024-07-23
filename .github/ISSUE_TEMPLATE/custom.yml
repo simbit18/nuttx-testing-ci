@@ -26,7 +26,15 @@ body:
       description: A description of what is actually happening.
     validations:
       required: true
-
+ - type: markdown
+    attributes:
+      value: |
+        *Before reporting:*
+        - Confirm the problem is reproducible on [**master**](https://github.com/apache/nuttx) or [**latest stable**] release
+        - Run `make distclean` when encountering build issues
+        - Search [existing issues](https://github.com/apache/nuttx/issues) (including [closed](https://github.com/apache/nuttx/issues?q=is%3Aissue+is%3Aclosed))
+        - Read the [FAQ](https://nuttx.apache.org/docs/latest/faq/index.html) and ["Reporting Problems" in CONTRIBUTING.md](https://nuttx.apache.org/docs/latest/contributing/index.html).
+  
   - type: checkboxes
     attributes:
       label: Verification
