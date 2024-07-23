@@ -9,3 +9,15 @@ body:
       description: "Describe the current behavior. May include logs, images, or videos."
     validations:
       required: true
+
+  - type: textarea
+    attributes:
+      label: Description / Steps to reproduce the issue
+      description: A clear and concise description of what the bug is, and why you consider it to be a bug, and steps for how to reproduce it
+      placeholder: |
+        A description with steps to reproduce the issue.
+        May include logs, images, or videos.
+        1. Step 1
+        2. Step 2
+    validations:
+      required: true
