@@ -33,7 +33,7 @@ body:
       label: Verification
       description: | 
         Please verify that you've followed these steps:
-          - Confirm the problem is reproducible on [**master**](https://github.com/apache/nuttx) or [**latest stable**](https://nuttx.apache.org/download/) release
+          - Confirm the problem is reproducible on [**master**](https://github.com/apache/nuttx) or [**latest stable**](https://nuttx.apache.org/download) release
           - Run `make distclean` when encountering build issues
           - Search [existing issues](https://github.com/apache/nuttx/issues) (including [closed](https://github.com/apache/nuttx/issues?q=is%3Aissue+is%3Aclosed))
           - Read the [FAQ](https://nuttx.apache.org/docs/latest/faq/index.html).
