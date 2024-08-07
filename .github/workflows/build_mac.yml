@@ -41,7 +41,8 @@ jobs:
           OS_REF=""
           APPS_REF=""
           # REF="refs/heads/simbit18-platforms"
-          REF="refs/heads/simbit18-test"
+          # REF="refs/heads/simbit18-test"
+          REF="refs/heads/simbit18-mac"
           # REF="refs/heads/master"
           echo "Working with ref: $REF"
       - name: Checkout nuttx repo
@@ -49,7 +50,7 @@ jobs:
         with:
           repository: simbit18/nuttx
           # ref: simbit18-platforms
-          ref: simbit18-test
+          ref: simbit18-mac
           # ref:  master
           path: sources/nuttx
           fetch-depth: 1
@@ -61,7 +62,7 @@ jobs:
         with:
           repository: simbit18/nuttx-apps
           # ref: simbit18-platforms
-          ref: simbit18-test
+          ref: master
           # ref: master
           path: sources/apps
           fetch-depth: 1
