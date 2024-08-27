@@ -50,14 +50,17 @@ RUN curl -s -L https://bitbucket.org/nuttx/tools/get/9ad3e1ee75c7.tar.gz \
   | tar -C nuttx-tools --strip-components=1 -xz
 
 RUN mkdir -p bloaty \
-  && git clone --depth 1 --branch v1.1 https://github.com/google/bloaty bloaty \
-  && cd bloaty \
+  && git clone --depth 1 --branch v1.1 https://github.com/google/bloaty bloaty-src \
+  && cd bloaty-src \
+  && cmake -B build -DCMAKE_INSTALL_PREFIX=bloaty \
+  && cmake --build build \
+  && cmake --build build --target install \
   && cmake -DCMAKE_SYSTEM_PREFIX_PATH=/tools/bloaty \
-  && make install
+  && cd /tools && rm -rf bloaty-src
 
 RUN cd nuttx-tools/kconfig-frontends \
   && ./configure --enable-mconf --disable-gconf --disable-qconf --enable-static --prefix=/tools/kconfig-frontends \
-  && make install
+  && make install && cd /tools && rm -rf nuttx-tools
 
 RUN mkdir -p /tools/gn \
   && cd /tools/gn \
@@ -80,15 +83,9 @@ RUN cd /tools \
   && rm v2023.10.09-nightly.zip \
   && cd zap && npm install cross-spawn folder-hash
 
-CMD [ "/bin/bash" ]
-
-###############################################################################
-# Base image that should be used to prepare programming language images
-###############################################################################
-FROM builder-base AS nuttx-language-base
-
-RUN mkdir -p /tools
-WORKDIR /tools
+#########################
+# Programming languages
+#########################
 
 # Install Rust and targets supported from NuttX
 ENV RUST_HOME=/tools/rust
@@ -126,6 +123,8 @@ RUN mkdir -p ${D_HOME} \
   && curl -s -O -L https://github.com/ldc-developers/ldc/releases/download/v${LDC_VERSION}/ldc2-${LDC_VERSION}-linux-x86_64.tar.xz \
   && tar xf ldc2-${LDC_VERSION}-linux-x86_64.tar.xz -C ${D_HOME} \
   && rm ldc2-${LDC_VERSION}-linux-x86_64.tar.xz
+
+CMD [ "/bin/bash" ]
 
 ###############################################################################
 # Base image that should be used to prepare arch build images
@@ -417,21 +416,21 @@ COPY --from=nuttx-tools /tools/kconfig-frontends/ kconfig-frontends/
 ENV PATH="/tools/kconfig-frontends/bin:$PATH"
 
 # Pull in the Rust toolchain including supported targets
-COPY --from=nuttx-language-base /tools/rust/ /tools/rust/
+COPY --from=nuttx-tools /tools/rust/ /tools/rust/
 ENV CARGO_HOME=/tools/rust/cargo
 ENV RUSTUP_HOME=/tools/rust/rustup
 ENV PATH="/tools/rust/cargo/bin:$PATH"
 
 # Pull in the Zig v0.13.0 toolchain
-COPY --from=nuttx-language-base /tools/zig/ /tools/zig/
+COPY --from=nuttx-tools /tools/zig/ /tools/zig/
 ENV PATH="/tools/zig/0.13.0/files:$PATH"
 
 # Pull in the ldc2 1.39.0 toolchain
-COPY --from=nuttx-language-base /tools/ldc2/ /tools/ldc2/
+COPY --from=nuttx-ltools /tools/ldc2/ /tools/ldc2/
 ENV PATH="/tools/ldc2/ldc2-1.39.0-linux-x86_64/bin:$PATH"
 
 # Pull in the swift 6.0 toolchain
-COPY --from=nuttx-language-base /tools/swift/ /tools/swift/
+COPY --from=nuttx-tools /tools/swift/ /tools/swift/
 ENV PATH="/tools/swift/swift-6.0-DEVELOPMENT-SNAPSHOT-2024-08-22-a/bin:$PATH"
 
 # ARM clang toolchain
