@@ -98,12 +98,12 @@ RUN mkdir -p $CARGO_HOME \
   && $CARGO_HOME/bin/rustup target add riscv64gc-unknown-none-elf
 
 # Install Swift
-ENV SWIFT_VERSION=6.0-DEVELOPMENT-SNAPSHOT-2024-08-22-a
-ENV SWIFT_HOME=/tools/swift
-RUN mkdir -p ${SWIFT_HOME} \
-  && curl -s -O -L https://download.swift.org/swift-6.0-branch/ubuntu2204/swift-${SWIFT_VERSION}/swift-${SWIFT_VERSION}-ubuntu22.04.tar.gz \
-  && tar xzf swift-${SWIFT_VERSION}-ubuntu22.04.tar.gz -C ${SWIFT_HOME} \
-  && rm swift-${SWIFT_VERSION}-ubuntu22.04.tar.gz
+# ENV SWIFT_VERSION=6.0-DEVELOPMENT-SNAPSHOT-2024-08-22-a
+# ENV SWIFT_HOME=/tools/swift
+# RUN mkdir -p ${SWIFT_HOME} \
+#  && curl -s -O -L https://download.swift.org/swift-6.0-branch/ubuntu2204/swift-${SWIFT_VERSION}/swift-${SWIFT_VERSION}-ubuntu22.04.tar.gz \
+#  && tar xzf swift-${SWIFT_VERSION}-ubuntu22.04.tar.gz -C ${SWIFT_HOME} \
+#  && rm swift-${SWIFT_VERSION}-ubuntu22.04.tar.gz
 
 # Install Zig latest release
 ENV ZIG_VERSION=0.13.0
@@ -430,8 +430,8 @@ COPY --from=nuttx-tools /tools/ldc2/ /tools/ldc2/
 ENV PATH="/tools/ldc2/ldc2-1.39.0-linux-x86_64/bin:$PATH"
 
 # Pull in the swift 6.0 toolchain
-COPY --from=nuttx-tools /tools/swift/ /tools/swift/
-ENV PATH="/tools/swift/swift-6.0-DEVELOPMENT-SNAPSHOT-2024-08-22-a/bin:$PATH"
+# COPY --from=nuttx-tools /tools/swift/ /tools/swift/
+# ENV PATH="/tools/swift/swift-6.0-DEVELOPMENT-SNAPSHOT-2024-08-22-a/bin:$PATH"
 
 # ARM clang toolchain
 COPY --from=nuttx-toolchain-arm /tools/clang-arm-none-eabi/ clang-arm-none-eabi/
