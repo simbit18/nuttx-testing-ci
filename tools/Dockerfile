@@ -42,7 +42,7 @@ RUN apt-get update -qq && DEBIAN_FRONTEND="noninteractive" apt-get install -y -q
   npm \
   unzip
 
-RUN mkdir /tools
+RUN mkdir -p /tools
 WORKDIR /tools
 
 RUN mkdir -p /tools/nuttx-tools
@@ -87,6 +87,9 @@ CMD [ "/bin/bash" ]
 ###############################################################################
 FROM builder-base AS nuttx-language-base
 
+RUN mkdir -p /tools
+WORKDIR /tools
+
 # Install Rust and targets supported from NuttX
 ENV RUST_HOME=/tools/rust
 ENV CARGO_HOME=$RUST_HOME/cargo
@@ -124,15 +127,12 @@ RUN mkdir -p ${D_HOME} \
   && tar xf ldc2-${LDC_VERSION}-linux-x86_64.tar.xz -C ${D_HOME} \
   && rm ldc2-${LDC_VERSION}-linux-x86_64.tar.xz
 
-RUN mkdir /tools
-WORKDIR /tools
-
 ###############################################################################
 # Base image that should be used to prepare arch build images
 ###############################################################################
 FROM builder-base AS nuttx-toolchain-base
 
-RUN mkdir /tools
+RUN mkdir -p /tools
 WORKDIR /tools
 
 ###############################################################################
@@ -407,7 +407,7 @@ RUN npm install -g n && n stable && hash -r
 
 # Used to generate symbol table files
 
-RUN mkdir /tools
+RUN mkdir -p /tools
 WORKDIR /tools
 
 # Pull in the tools we just built for nuttx
