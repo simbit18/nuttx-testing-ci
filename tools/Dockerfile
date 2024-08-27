@@ -234,7 +234,7 @@ RUN cd renesas-tools/source/newlib && \
   /tools/renesas-tools/source/newlib/configure --target=rx-elf --prefix=/tools/renesas-toolchain/rx-elf-gcc && \
   make && make install
 RUN cd /tools/renesas-tools/build/gcc && \
-  make && make install
+  make && make install && cd /tools && rm -rf renesas-tools
 
 ###############################################################################
 # Build image for tool required by RISCV builds
