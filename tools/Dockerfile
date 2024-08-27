@@ -426,7 +426,7 @@ COPY --from=nuttx-tools /tools/zig/ /tools/zig/
 ENV PATH="/tools/zig/0.13.0/files:$PATH"
 
 # Pull in the ldc2 1.39.0 toolchain
-COPY --from=nuttx-ltools /tools/ldc2/ /tools/ldc2/
+COPY --from=nuttx-tools /tools/ldc2/ /tools/ldc2/
 ENV PATH="/tools/ldc2/ldc2-1.39.0-linux-x86_64/bin:$PATH"
 
 # Pull in the swift 6.0 toolchain
