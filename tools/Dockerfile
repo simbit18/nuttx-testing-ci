@@ -49,13 +49,12 @@ RUN mkdir -p /tools/nuttx-tools
 RUN curl -s -L https://bitbucket.org/nuttx/tools/get/9ad3e1ee75c7.tar.gz \
   | tar -C nuttx-tools --strip-components=1 -xz
 
-RUN mkdir -p bloaty \
+RUN mkdir -p /tools/bloaty \
   && git clone --depth 1 --branch v1.1 https://github.com/google/bloaty bloaty-src \
   && cd bloaty-src \
-  && cmake -B build -DCMAKE_INSTALL_PREFIX=bloaty \
+  && cmake -B build -DCMAKE_INSTALL_PREFIX=/tools/bloaty \
   && cmake --build build \
   && cmake --build build --target install \
-  && cmake -DCMAKE_SYSTEM_PREFIX_PATH=/tools/bloaty \
   && cd /tools && rm -rf bloaty-src
 
 RUN cd nuttx-tools/kconfig-frontends \
