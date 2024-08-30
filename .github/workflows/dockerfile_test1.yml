@@ -64,7 +64,7 @@ jobs:
 
           ## Configure the build
           # ./tools/configure.sh -l avr32dev1:nsh
-          ./tools/configure.sh -l rx65n:nsh
+          ./tools/configure.sh -l rx65n-grrose:nsh
 
           ## mkdir nuttxmsys2
 
