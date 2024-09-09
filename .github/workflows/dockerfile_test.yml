@@ -41,8 +41,11 @@ jobs:
           mkdir nuttxspace
           ls -a
           cd nuttxspace
-          git clone --depth 1 https://github.com/ramangopalan/nuttx.git nuttx
-          git clone --depth 1 https://github.com/ramangopalan/nuttx-apps.git apps
+          # git clone --depth 1 https://github.com/ramangopalan/nuttx.git nuttx
+          # git clone --depth 1 https://github.com/ramangopalan/nuttx-apps.git apps
+          git clone --depth 1 https://github.com/simbit18/nuttx.git nuttx
+          git clone --depth 1 https://github.com/simbit18/nuttx-apps.git apps
+
           ls -a
 
       - name: Build
@@ -61,11 +64,26 @@ jobs:
           avr32-gcc -dumpspecs
 
           ## Configure the build
-          ./tools/configure.sh -l mizar32a:nsh
+          ## ./tools/configure.sh -l mizar32a:nsh
+          ./tools/configure.sh -l -S mizar32a:nsh
 
           ## mkdir nuttxmsys2
 
           ## Preserve the build config
           ## cp .config nuttxmsys2/nuttx.config
-          make -j 4
+          make -j
+          ls -a
+          
+          make distclean -j
+          
+          ./tools/configure.sh -l -S esp32-devkitc:nsh
+          
+          make -j
+          ls -a
+          
+          make distclean -j
+          
+          ./tools/configure.sh -l esp32-devkitc:nsh
+          
+          make -j
           ls -a
