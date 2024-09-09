@@ -43,7 +43,7 @@ jobs:
           cd nuttxspace
           # git clone --depth 1 https://github.com/ramangopalan/nuttx.git nuttx
           # git clone --depth 1 https://github.com/ramangopalan/nuttx-apps.git apps
-          git clone --depth 1 https://github.com/simbit18/nuttx.git nuttx
+          git clone --depth 1 --single-branch --branch simbit18-speed3 https://github.com/simbit18/nuttx.git nuttx
           git clone --depth 1 https://github.com/simbit18/nuttx-apps.git apps
 
           ls -a
@@ -65,7 +65,7 @@ jobs:
 
           ## Configure the build
           ## ./tools/configure.sh -l mizar32a:nsh
-          ./tools/configure.sh -l -S mizar32a:nsh
+          ./tools/configure.sh -l -S esp32-devkitc:nsh
 
           ## mkdir nuttxmsys2
 
