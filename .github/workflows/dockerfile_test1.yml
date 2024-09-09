@@ -36,7 +36,6 @@ jobs:
           # arm-none-eabi-gcc --version
           # aarch64-none-elf-gcc --version
       - name: Checkout Source Files
-        uses: actions/checkout@v4
         run: |
           echo 'Checkout Source Files'
           mkdir nuttxspace
