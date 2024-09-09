@@ -71,19 +71,27 @@ jobs:
 
           ## Preserve the build config
           ## cp .config nuttxmsys2/nuttx.config
-          make -j
+          make V=1 -j
           ls -a
           
           make distclean -j
           
           ./tools/configure.sh -l -S esp32-devkitc:nsh
           
-          make -j
+          make V=1 -j
           ls -a
           
           make distclean -j
           
           ./tools/configure.sh -l esp32-devkitc:nsh
           
-          make -j
+          make V=1 -j
+          ls -a
+          
+          make distclean -j
+          
+          ./tools/configure.sh -l esp32-devkitc:nsh
+          
+          make V=1 -j
+          
           ls -a
