@@ -98,6 +98,7 @@ jobs:
             zip
             tio
             zlib-devel
+            curl
             cmake
             ninja
             python-pip 
@@ -131,7 +132,7 @@ jobs:
           git config --global --add safe.directory /github/workspace/sources/apps
           cd sources/nuttx/tools/ci
           ## ./cibuild.sh -g -i -c -A -R testlist/${{matrix.boards}}.dat
-          ./cibuild.sh -g -d -i -A -C -N -R testlist/${{matrix.boards}}.dat
+          ./cibuild.sh -g -i -A -C -N -R testlist/${{matrix.boards}}.dat
       - uses: actions/upload-artifact@v4
         with:
           name: msys2-builds
