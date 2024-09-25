@@ -108,6 +108,7 @@ jobs:
         run: |
           echo 'pip3 install'
           uname
+          curl --version
           python3 -m venv --system-site-packages /usr/local
           pip3 install --root-user-action=ignore --no-cache-dir pyelftools cxxfilt kconfiglib
           
