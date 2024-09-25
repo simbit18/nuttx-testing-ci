@@ -98,7 +98,6 @@ jobs:
             zip
             tio
             zlib-devel
-            curl
             cmake
             ninja
             python-pip 
