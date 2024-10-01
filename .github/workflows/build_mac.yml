@@ -139,7 +139,7 @@ jobs:
     needs: Fetch-Source
     strategy:
       matrix:
-        boards: [macos, arm-10]
+        boards: [macos, arm-10, sim-02]
     steps:
       - name: Download Source Artifact
         uses: actions/download-artifact@v4
@@ -241,7 +241,7 @@ jobs:
           git config --global --add safe.directory /github/workspace/sources/nuttx
           git config --global --add safe.directory /github/workspace/sources/apps
           cd sources/nuttx/tools/ci
-          ./cibuild.sh -g -i -A -C -R testlist/${{matrix.boards}}.dat
+          ./cibuild.sh -g -i -A -C -N -R testlist/${{matrix.boards}}.dat
 
       - uses: actions/upload-artifact@v4
         with:
