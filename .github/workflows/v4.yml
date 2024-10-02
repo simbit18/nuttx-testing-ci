@@ -41,7 +41,7 @@ jobs:
           OS_REF=""
           APPS_REF=""
           # REF="refs/heads/simbit18-platforms"
-          REF="refs/heads/simbit18-test"
+          REF="refs/heads/simbit18-skipping"
           # REF="refs/heads/master"
           echo "Working with ref: $REF"
       - name: Checkout nuttx repo
@@ -49,7 +49,7 @@ jobs:
         with:
           repository: simbit18/nuttx
           # ref: simbit18-platforms
-          ref: simbit18-test
+          ref: simbit18-skipping
           # ref:  master
           path: sources/nuttx
           fetch-depth: 1
@@ -61,7 +61,7 @@ jobs:
         with:
           repository: simbit18/nuttx-apps
           # ref: simbit18-platforms
-          ref: simbit18-test
+          ref: master
           # ref: master
           path: sources/apps
           fetch-depth: 1
@@ -82,7 +82,7 @@ jobs:
 
     strategy:
       matrix:
-        boards: [arm-10, arm-11, sim-02]
+        boards: [arm-01, arm-02, arm-03, arm-04, arm-05, arm-06, arm-07, arm-08, arm-09, arm-10, arm-11, arm-12, arm-13, other, risc-v-01, risc-v-02, sim-01, sim-02, xtensa-01, xtensa-02]
 
     steps:
       - name: Download Source Artifact
@@ -119,9 +119,9 @@ jobs:
             git config --global --add safe.directory /github/workspace/sources/apps
             cd sources/nuttx/tools/ci
             if [ "X${{matrix.boards}}" = "Xcodechecker" ]; then
-                ./cibuild.sh -c -A -R --codechecker testlist/${{matrix.boards}}.dat
+                ./cibuild.sh -c -A -N -R --codechecker testlist/${{matrix.boards}}.dat
             else
-                ./cibuild.sh -c -A -R testlist/${{matrix.boards}}.dat
+                ./cibuild.sh -c -A -N -R -S testlist/${{matrix.boards}}.dat
             fi
 
       - uses: actions/upload-artifact@v4
@@ -138,7 +138,7 @@ jobs:
     needs: Fetch-Source
     strategy:
       matrix:
-        boards: [macos]
+        boards: [macos, sim-01, sim-02]
     steps:
       - name: Download Source Artifact
         uses: actions/download-artifact@v4
@@ -239,7 +239,7 @@ jobs:
           git config --global --add safe.directory /github/workspace/sources/nuttx
           git config --global --add safe.directory /github/workspace/sources/apps
           cd sources/nuttx/tools/ci
-          ./cibuild.sh -g -i -A -C -R testlist/${{matrix.boards}}.dat
+          ./cibuild.sh -g -i -A -C -N -R testlist/${{matrix.boards}}.dat
 
       - uses: actions/upload-artifact@v4
         with:
