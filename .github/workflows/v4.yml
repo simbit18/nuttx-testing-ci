@@ -49,7 +49,7 @@ jobs:
         with:
           repository: simbit18/nuttx
           # ref: simbit18-platforms
-          ref: simbit18-skipping
+          ref: simbit18-20241003
           # ref:  master
           path: sources/nuttx
           fetch-depth: 1
