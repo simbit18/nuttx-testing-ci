@@ -41,7 +41,7 @@ jobs:
           OS_REF=""
           APPS_REF=""
           # REF="refs/heads/simbit18-platforms"
-          REF="refs/heads/simbit18-skipping"
+          REF="refs/heads/simbit18-20241003"
           # REF="refs/heads/master"
           echo "Working with ref: $REF"
       - name: Checkout nuttx repo
@@ -171,7 +171,7 @@ jobs:
           echo "::add-matcher::sources/nuttx/.github/gcc.json"
           export ARTIFACTDIR=`pwd`/buildartifacts
           cd sources/nuttx/tools/ci
-          ./cibuild.sh -i -c -A -R testlist/${{matrix.boards}}.dat
+          ./cibuild.sh -i -c -A -N -R testlist/${{matrix.boards}}.dat
 
       - uses: actions/upload-artifact@v4
         with:
