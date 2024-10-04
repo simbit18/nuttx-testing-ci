@@ -10,18 +10,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-name: BuildV4
+name: Build Cmake Ninjia
 
 on:
-  pull_request:
-    paths-ignore:
-      - 'Documentation/**'
-      - 'tools/ci/docker/linux/**'
-      
   workflow_dispatch:
   push:
-    paths-ignore:
-      - 'Documentation/**'
+    paths:
+      - '.github/workflows/test_ninja.yml'
 
 permissions:
   contents: read
@@ -40,16 +35,14 @@ jobs:
         run: |
           OS_REF=""
           APPS_REF=""
-          # REF="refs/heads/simbit18-platforms"
-          REF="refs/heads/simbit18-20241003"
+          REF="refs/heads/simbit-savedefconfig"
           # REF="refs/heads/master"
           echo "Working with ref: $REF"
       - name: Checkout nuttx repo
         uses: actions/checkout@v4
         with:
           repository: simbit18/nuttx
-          # ref: simbit18-platforms
-          ref: simbit18-20241003
+          ref: simbit-savedefconfig
           # ref:  master
           path: sources/nuttx
           fetch-depth: 1
@@ -82,7 +75,7 @@ jobs:
 
     strategy:
       matrix:
-        boards: [arm-01, arm-02, arm-03, arm-04, arm-05, arm-06, arm-07, arm-08, arm-09, arm-10, arm-11, arm-12, arm-13, other, risc-v-01, risc-v-02, sim-01, sim-02, xtensa-01, xtensa-02]
+        boards: [arm-10, sim-02]
 
     steps:
       - name: Download Source Artifact
@@ -138,7 +131,7 @@ jobs:
     needs: Fetch-Source
     strategy:
       matrix:
-        boards: [macos, sim-01, sim-02]
+        boards: [macos, sim-02]
     steps:
       - name: Download Source Artifact
         uses: actions/download-artifact@v4
@@ -218,7 +211,6 @@ jobs:
         run: |
           python3 -m venv --system-site-packages /usr/local
           pip3 install --root-user-action=ignore --no-cache-dir pyelftools cxxfilt kconfiglib
-
       - run: git config --global core.autocrlf false
 
       - name: Download Source Artifact
