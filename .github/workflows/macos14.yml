@@ -10,13 +10,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-name: Build macos13
+name: Build macos14
 
 on:
   workflow_dispatch:
   push:
     paths:
-      - '.github/workflows/macos13.yml'
+      - '.github/workflows/macos14.yml'
 
 permissions:
   contents: read
@@ -63,10 +63,10 @@ jobs:
         with:
           name: source-bundle
           path: sources.tar.gz
-  macOS13:
+  macOS14:
     permissions:
       contents: none
-    runs-on: macos-13
+    runs-on: macos-14
     needs: Fetch-Source
     strategy:
       max-parallel: 3
