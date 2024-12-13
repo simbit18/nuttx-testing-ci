@@ -41,7 +41,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: yamt/incubator-nuttx
-          ref: tools-macos
+          ref: tools-macos-2
           path: sources/nuttx
           fetch-depth: 1
       - name: Checkout nuttx repo tags
