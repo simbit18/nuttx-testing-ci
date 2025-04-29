@@ -33,6 +33,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: simbit18/nuttx-testing-ci
+          ref: master
           path: nuttx
           fetch-depth: 0
 
