@@ -23,6 +23,8 @@ set -e
 set -o xtrace
 
 TOOLDIR=$(dirname $0)
+CID=$(cd "$(dirname "$0")" && pwd)
+CIWORKSPACE=$(cd "${CID}"/../../../ && pwd -P)
 echo "USAGE: ${0} $TOOLDIR"
 case "$OSTYPE" in
   *bsd*) MAKECMD=gmake;;
