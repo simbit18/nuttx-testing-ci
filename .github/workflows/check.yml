@@ -34,11 +34,12 @@ jobs:
         with:
           repository: simbit18/nuttx-testing-ci
           ref: main
+          path: nuttx
           fetch-depth: 0
 
       - name: Check Pull Request
         run: |
-          echo "::add-matcher::nuttx/.github/nxstyle.json"
+          echo "::add-matcher::nuttx-testing-ci/.github/nxstyle.json"
           python3 -m venv .venv
           source .venv/bin/activate
           # pip install cmake-format black isort flake8
