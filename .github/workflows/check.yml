@@ -18,7 +18,7 @@ on:
       - 'Documentation/**'
 
 concurrency:
-  group: check-${{ github.event.push.number || github.ref }}
+  group: check-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 permissions:
@@ -33,7 +33,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: simbit18/nuttx-testing-ci
-          ref: master
+          ref: main
           path: nuttx
           fetch-depth: 0
 
