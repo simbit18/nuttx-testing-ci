@@ -44,7 +44,7 @@ jobs:
           source .venv/bin/activate
           # pip install cmake-format black isort flake8
           pwd
-          # cd nuttx
+          cd nuttx-testing-ci/nuttx
           ls
           #commits="${{ github.event.pull_request.base.sha }}..HEAD"
           commits="${{ github.event.head_commit.added }}"
