@@ -18,7 +18,7 @@ on:
       - 'Documentation/**'
 
 concurrency:
-  group: check-${{ github.event.pull_request.number || github.ref }}
+  group: check-${{ github.event.push.number || github.ref }}
   cancel-in-progress: true
 
 permissions:
