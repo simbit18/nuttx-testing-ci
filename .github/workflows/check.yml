@@ -47,7 +47,7 @@ jobs:
           cd nuttx-testing-ci/nuttx
           ls
           #commits="${{ github.event.pull_request.base.sha }}..HEAD"
-          commits="${{ github.event.head }}"
+          commits="${{ github.event.head }}..HEAD"
           git log --oneline $commits
           echo "../nuttx/tools/checkpatch.sh -u -m -g $commits"
           ../nuttx/tools/checkpatch.sh -u -m -g $commits
