@@ -45,7 +45,7 @@ jobs:
           # pip install cmake-format black isort flake8
           cd nuttx
           #commits="${{ github.event.pull_request.base.sha }}..HEAD"
-          commits="${{ github.event.head_commit.added }}"
+          commits="${{ github.event.head_commit.added }}..HEAD"
           git log --oneline $commits
           echo "../nuttx/tools/checkpatch.sh -u -m -g $commits"
           ../nuttx/tools/checkpatch.sh -u -m -g $commits
