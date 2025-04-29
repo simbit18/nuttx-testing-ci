@@ -20,7 +20,7 @@
 #
 
 TOOLDIR=$(dirname $0)
-
+echo "USAGE: ${0} $TOOLDIR"
 case "$OSTYPE" in
   *bsd*) MAKECMD=gmake;;
   *) MAKECMD=make;;
