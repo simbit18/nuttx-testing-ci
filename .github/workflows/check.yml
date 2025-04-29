@@ -44,7 +44,8 @@ jobs:
           source .venv/bin/activate
           # pip install cmake-format black isort flake8
           cd nuttx
-          commits="${{ github.event.pull_request.base.sha }}..HEAD"
+          #commits="${{ github.event.pull_request.base.sha }}..HEAD"
+          commits="${{ github.event.commits }}"
           git log --oneline $commits
           echo "../nuttx/tools/checkpatch.sh -u -m -g $commits"
           ../nuttx/tools/checkpatch.sh -u -m -g $commits
