@@ -13,12 +13,7 @@
 name: Build
 
 on:
-  pull_request:
-    paths-ignore:
-      - 'Documentation/**'
-      - 'tools/ci/docker/linux/**'
-      
-  workflow_dispatch:    
+  workflow_dispatch:
   push:
     paths-ignore:
       - 'Documentation/**'

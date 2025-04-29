@@ -13,11 +13,6 @@
 name: BuildV4
 
 on:
-  pull_request:
-    paths-ignore:
-      - 'Documentation/**'
-      - 'tools/ci/docker/linux/**'
-      
   workflow_dispatch:
   push:
     paths-ignore:

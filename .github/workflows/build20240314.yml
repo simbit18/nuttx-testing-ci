@@ -13,11 +13,6 @@
 name: 20240314
 
 on:
-  pull_request:
-    paths-ignore:
-      - 'Documentation/**'
-      - 'tools/ci/docker/linux/**'
-      
   workflow_dispatch:    
   push:
     paths-ignore:
