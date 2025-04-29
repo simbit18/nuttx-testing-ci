@@ -34,7 +34,7 @@ jobs:
         with:
           repository: simbit18/nuttx-testing-ci
           ref: main
-          path: nuttx
+          path: nuttx-testing-ci
           fetch-depth: 0
 
       - name: Check Pull Request
