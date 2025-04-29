@@ -19,6 +19,9 @@
 # limitations under the License.
 #
 
+set -e
+set -o xtrace
+
 TOOLDIR=$(dirname $0)
 echo "USAGE: ${0} $TOOLDIR"
 case "$OSTYPE" in
