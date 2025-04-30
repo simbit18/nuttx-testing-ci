@@ -49,5 +49,5 @@ jobs:
           #commits="${{ github.event.pull_request.base.sha }}..HEAD"
           commits="${{ github.event.before }}..HEAD"
           git log --oneline $commits
-          echo "./nuttx/tools/checkpatch.sh -u -m -g $commits"
-          ./nuttx/tools/checkpatch.sh -u -m -g $commits
+          echo "../nuttx/tools/checkpatch.sh -u -m -g $commits"
+          ./tools/checkpatch.sh -u -m -g $commits
