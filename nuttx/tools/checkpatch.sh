@@ -97,6 +97,14 @@ is_cmake_file() {
   fi
 }
 
+is_c_file() {
+  if [ ${@##*.} == 'c' ]  || [ ${@##*.} == 'h' ]; then
+    echo 1
+  else
+    echo 0
+  fi
+}
+
 check_file() {
   if [ -x $@ ]; then
     case $@ in
@@ -194,8 +202,10 @@ check_file() {
       fi
       fail=1
     fi
-  elif ! $TOOLDIR/nxstyle $@ 2>&1; then
-    fail=1
+  elif [ "$(is_c_file $@)" == "1" ]; then
+    if ! $TOOLDIR/nxstyle $@ 2>&1; then
+      fail=1
+    fi
   fi
 
   if [ $spell != 0 ]; then
