@@ -73,7 +73,7 @@ is_rust_file() {
   file_ext_r=${file_ext/R/r}
   file_ext_rs=${file_ext_r/S/s}
 
-  if [ "$file_ext_rs" == "rs" ]; then
+  if [[ "$file_ext_rs" == "rs" ]]; then
     echo 1
   else
     echo 0
@@ -81,7 +81,7 @@ is_rust_file() {
 }
 
 is_python_file() {
-  if [ "${@##*.}" == "py" ]; then
+  if [[ "${@##*.}" == "py" ]]; then
     echo 1
   else
     echo 0
@@ -90,7 +90,7 @@ is_python_file() {
 
 is_cmake_file() {
   file_name=$(basename $@)
-  if [ "$file_name" == "CMakeLists.txt" ] || [[ "$file_name" =~ \.cmake$ ]]; then
+  if [[ "$file_name" == "CMakeLists.txt" ]] || [[ "$file_name" =~ \.cmake$ ]]; then
     echo 1
   else
     echo 0
