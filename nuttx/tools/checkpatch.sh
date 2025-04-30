@@ -256,7 +256,7 @@ check_ranges() {
         fi
       fi
       # path=$(realpath "${BASH_REMATCH[3]}")
-      path= $(realpath "$CID/${BASH_REMATCH[3]}")
+      path= $(realpath "$CIWORKSPACE/${BASH_REMATCH[3]}")
       ranges=""
     elif [[ $REPLY =~ @@\ -[0-9]+(,[0-9]+)?\ \+([0-9]+,[0-9]+)?\ @@.* ]]; then
       ranges+="-r ${BASH_REMATCH[2]} "
