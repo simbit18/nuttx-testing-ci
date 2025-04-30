@@ -206,6 +206,8 @@ check_file() {
     if ! $TOOLDIR/nxstyle $@ 2>&1; then
       fail=1
     fi
+  else
+    echo "There is no manual page for that command."
   fi
 
   if [ $spell != 0 ]; then
