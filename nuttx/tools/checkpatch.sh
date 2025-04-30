@@ -254,7 +254,7 @@ check_ranges() {
           check_file $path
         fi
       fi
-      # path=$(realpath "${BASH_REMATCH[3]}")
+      path=$(realpath "${BASH_REMATCH[3]}")
       # path="../${BASH_REMATCH[3]}"
       ranges=""
     elif [[ $REPLY =~ @@\ -[0-9]+(,[0-9]+)?\ \+([0-9]+,[0-9]+)?\ @@.* ]]; then
