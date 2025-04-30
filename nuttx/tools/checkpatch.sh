@@ -81,7 +81,7 @@ is_rust_file() {
 }
 
 is_python_file() {
-  if [ ${@##*.} == "py" ]; then
+  if [ "${@##*.}" == "py" ]; then
     echo 1
   else
     echo 0
@@ -98,7 +98,7 @@ is_cmake_file() {
 }
 
 is_c_file() {
-  if [ ${@##*.} == "c" ] || [ ${@##*.} == "h" ]; then
+  if [ "${@##*.}" == "c" ] || [ "${@##*.}" == "h" ]; then
     echo 1
   else
     echo 0
