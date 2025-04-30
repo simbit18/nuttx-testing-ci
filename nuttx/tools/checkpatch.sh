@@ -81,7 +81,7 @@ is_rust_file() {
 }
 
 is_python_file() {
-  if [ ${@##*.} == 'py' ]; then
+  if [ "${@##*.}" == 'py' ]; then
     echo 1
   else
     echo 0
