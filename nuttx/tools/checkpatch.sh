@@ -19,8 +19,8 @@
 # limitations under the License.
 #
 
-set -e
-set -o xtrace
+# set -e
+# set -o xtrace
 
 TOOLDIR=$(dirname $0)
 CID=$(cd "$(dirname "$0")" && pwd)
