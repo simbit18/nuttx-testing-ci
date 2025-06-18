@@ -99,7 +99,7 @@ jobs:
       # https://github.com/cython/cython/issues/4500
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.10t'
+          python-version: '3.13'
       - name: Run Builds
         run: |
           echo "::add-matcher::sources/nuttx/.github/gcc.json"
