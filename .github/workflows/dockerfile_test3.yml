@@ -60,12 +60,6 @@ jobs:
           avr32-gcc --version
           avr32-gcc -dumpspecs
 
-          ## CMAKE Configure the build 
-          cmake -B build -DBOARD_CONFIG=thingy91:nsh_rtt -GNinja
-
-          cmake --build build
-
-          rm -Rf build
           ## Make Configure the build
           ./tools/configure.sh -l thingy91:nsh_rtt
 
@@ -77,3 +71,10 @@ jobs:
           ls -a
 
           make distclean -j
+
+          ## CMAKE Configure the build 
+          cmake -B build -DBOARD_CONFIG=thingy91:nsh_rtt -GNinja
+
+          cmake --build build
+
+          rm -Rf build
