@@ -1,0 +1,79 @@
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+name: Docker Nuttx avr32dev1:ostest
+
+permissions:
+  contents: read
+on: 
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/dockerfile_test2.yml'
+
+jobs:
+  build_docker_avr32dev1_ostest:
+    container: ghcr.io/simbit18/nuttx-testing-ci/apache-nuttx-ci-linux
+    runs-on: ubuntu-latest
+    steps:
+      - name: System Information
+        run: |
+          bash --version
+          uname -a
+      - name: Set Environment Variables
+        run: |
+          echo "$GITHUB_PATH"
+          echo "$PATH"
+          # arm-none-eabi-gcc --version
+          # aarch64-none-elf-gcc --version
+      - name: Checkout Source Files
+        run: |
+          echo 'Checkout Source Files'
+          mkdir nuttxspace
+          ls -a
+          cd nuttxspace
+          git clone --depth 1 --single-branch --branch simbit18-seggerversion https://github.com/simbit18/nuttx.git
+          git clone --depth 1 https://github.com/apache/nuttx-apps.git apps
+          ls -a
+
+      - name: Build
+        run: |
+          echo 'Build'
+
+          ## Move to nuttx
+          cd nuttxspace/nuttx
+          ls -a
+
+          ## Show the GCC version
+          gcc -v
+
+          ## Show the avr32-gcc version
+          avr32-gcc --version
+          avr32-gcc -dumpspecs
+
+          ## CMAKE Configure the build 
+          cmake -B build -DBOARD_CONFIG=thingy91:nsh_rtt -GNinja
+
+          cmake --build build
+
+          rm -Rf build
+          ## Make Configure the build
+          ./tools/configure.sh -l thingy91:nsh_rtt
+
+          ## mkdir nuttxmsys2
+
+          ## Preserve the build config
+          ## cp .config nuttxmsys2/nuttx.config
+          make -j 4
+          ls -a
+
+          make distclean -j
