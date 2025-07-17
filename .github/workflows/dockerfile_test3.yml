@@ -10,7 +10,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-name: Docker Nuttx avr32dev1:ostest
+name: Docker Nuttx test3
 
 permissions:
   contents: read
@@ -21,7 +21,7 @@ on:
       - '.github/workflows/dockerfile_test2.yml'
 
 jobs:
-  build_docker_avr32dev1_ostest:
+  build_docker_test3:
     container: ghcr.io/simbit18/nuttx-testing-ci/apache-nuttx-ci-linux
     runs-on: ubuntu-latest
     steps:
