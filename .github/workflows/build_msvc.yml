@@ -66,6 +66,9 @@ jobs:
   msvc:
     needs: Fetch-Source
     runs-on: windows-latest
+    strategy:
+      matrix:
+        boards: ["windows"]
     steps:
       - uses: actions/checkout@v4
       # Set up Python environment and install kconfiglib
