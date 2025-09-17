@@ -67,8 +67,8 @@ RUN cd nuttx-tools/kconfig-frontends \
 RUN mkdir -p /tools/gn \
   && cd /tools/gn \
   && git clone https://gn.googlesource.com/gn gn \
-  && cd gn && ./build/gen.py \
-  && cd out && ninja
+  && cd gn && python3 build/gen.py \
+  && ninja -C out
 
 # Upgrade nodejs to the stable version we need before install zap
 RUN npm install -g n && n 20.10.0 node && hash -r
