@@ -43,7 +43,8 @@ RUN apt-get update -qq && DEBIAN_FRONTEND="noninteractive" apt-get install -y -q
   nodejs \
   npm \
   unzip \
-  zip
+  zip \
+  python3
 
 RUN mkdir -p /tools
 WORKDIR /tools
