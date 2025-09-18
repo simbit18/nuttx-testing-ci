@@ -43,7 +43,8 @@ RUN apt-get update -qq && DEBIAN_FRONTEND="noninteractive" apt-get install -y -q
   nodejs \
   npm \
   unzip \
-  zip
+  zip \
+  python3
 
 RUN mkdir -p /tools
 WORKDIR /tools
@@ -57,7 +58,7 @@ RUN mkdir -p /tools/gn \
   && git clone https://gn.googlesource.com/gn gn \
   && cd gn \
   && git checkout 9f1c58396d58d04584012dfa1862c535e9acee05 \
-  && ./build/gen.py \
+  && python3 build/gen.py \
   && ninja -C out
 
 #########################
