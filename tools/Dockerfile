@@ -55,7 +55,7 @@ RUN curl -s -L https://bitbucket.org/nuttx/tools/get/9ad3e1ee75c7.tar.gz \
 
 RUN mkdir -p /tools/gn \
   && cd /tools/gn \
-  && git clone https://gn.googlesource.com/gn gn \
+  && git clone --revision=WxwDx6yHqV3yVEIe1euz9cVgM1K8GUeITCeAS31IZZIC --depth=1 https://gn.googlesource.com/gn gn \
   && cd gn \
   && python3 build/gen.py \
   && ninja -C out
