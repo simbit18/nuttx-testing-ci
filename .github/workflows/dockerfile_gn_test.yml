@@ -37,19 +37,14 @@ jobs:
           # aarch64-none-elf-gcc --version
       - name: Test version
         run: |
-          echo 'Test version'
-          mkdir nuttxspace
-          ls -a
-      - name: Version
-        run: |
           echo 'Version'
 
           ## Show the GCC version
-          gcc -v
+          # gcc -v
 
           ## Show the avr32-gcc version
-          avr32-gcc --version
-          avr32-gcc -dumpspecs
+          # avr32-gcc --version
+          # avr32-gcc -dumpspecs
 
           ## Show the gn version
           gn --version
