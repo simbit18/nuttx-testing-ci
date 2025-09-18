@@ -57,7 +57,7 @@ RUN mkdir -p /tools/gn \
   && cd /tools/gn \
   && git clone https://gn.googlesource.com/gn gn \
   && cd gn \
-  && python build/gen.py \
+  && python3 build/gen.py \
   && ninja -C out
 
 #########################
