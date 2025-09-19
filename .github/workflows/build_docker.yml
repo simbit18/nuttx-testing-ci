@@ -36,16 +36,16 @@ jobs:
           OS_REF=""
           APPS_REF=""
           # REF="refs/heads/simbit18-pr11709"
-          # REF="refs/heads/simbit18-platforms"
-          REF="refs/heads/master"
+          REF="refs/heads/simbit18-arc_rp2040"
+          # REF="refs/heads/master"
           echo "Working with ref: $REF"
       - name: Checkout nuttx repo
         uses: actions/checkout@v4
         with:
-          repository: apache/nuttx
+          repository: simbit18/nuttx
           # ref: simbit18-pr11709
           # repository: ramangopalan/nuttx
-          # ref: simbit18-platforms
+          ref: simbit18-arc_rp2040
           ref: master
           path: sources/nuttx
           fetch-depth: 1
