@@ -46,7 +46,7 @@ jobs:
           # ref: simbit18-pr11709
           # repository: ramangopalan/nuttx
           ref: simbit18-arc_rp2040
-          ref: master
+          # ref: master
           path: sources/nuttx
           fetch-depth: 1
       - name: Checkout nuttx repo tags
