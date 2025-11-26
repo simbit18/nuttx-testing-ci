@@ -27,6 +27,9 @@ jobs:
     steps:
       - name: Run Builds
         run: |
-          brew install --formula ./Formula/avr-gcc@11.rb
+          curl -O -L -s https://github.com/osx-cross/homebrew-avr/archive/refs/tags/avr-gcc@9-9.4.0_1.tar.gz
+          tar zxf avr-gcc@9-9.4.0_1.tar.gz
+          ls -la
+          # brew install --formula ./Formula/avr-gcc@11.rb
           # brew tap osx-cross/avr-gcc@9-9.4.0_1
           # brew install avr-gcc
