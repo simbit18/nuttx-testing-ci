@@ -28,7 +28,9 @@ jobs:
       - name: Run Builds
         run: |
           brew --version
-          cd /opt/homebrew
+          brew tap homebrew/versions
+          cd /usr/local
+          ls -la
           git checkout 4.6.3
           curl -O -L -s https://github.com/osx-cross/homebrew-avr/archive/refs/tags/avr-gcc@9-9.4.0_1.tar.gz
           tar zxf avr-gcc@9-9.4.0_1.tar.gz
