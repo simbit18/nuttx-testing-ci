@@ -27,5 +27,6 @@ jobs:
     steps:
       - name: Run Builds
         run: |
-          brew tap osx-cross/avr-gcc@9-9.4.0_1
-          brew install avr-gcc
+          brew install --formula ./Formula/avr-gcc@11.rb
+          # brew tap osx-cross/avr-gcc@9-9.4.0_1
+          # brew install avr-gcc
