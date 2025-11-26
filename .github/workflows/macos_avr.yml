@@ -32,6 +32,11 @@ jobs:
           cd /usr/local/Homebrew
           ls -la
           git checkout 4.6.3
+          # curl -O -L -s https://github.com/osx-cross/homebrew-avr/archive/refs/tags/avr-binutils-2.44.tar.gz
+          # tar zxf avr-binutils-2.44.tar.gz
+          # ls -la
+          # cd homebrew-avr-avr-binutils-2.44
+          # brew install --formula ./avr-gcc@9.rb
           curl -O -L -s https://github.com/osx-cross/homebrew-avr/archive/refs/tags/avr-gcc@9-9.4.0_1.tar.gz
           tar zxf avr-gcc@9-9.4.0_1.tar.gz
           ls -la
@@ -39,6 +44,7 @@ jobs:
           # brew tap osx-cross/avr
           # brew info avr-gcc
           cd Formula
+          brew install --formula ./avr-binutils.rb
           brew install --formula ./avr-gcc@9.rb
           cd /opt/homebrew
           git checkout main
