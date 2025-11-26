@@ -113,3 +113,54 @@ jobs:
           name: macos-${{matrix.boards}}-builds
           path: buildartifacts/
         continue-on-error: true
+
+  macOS15:
+    permissions:
+      contents: none
+    runs-on: macos-15-intel
+    needs: Fetch-Source
+    strategy:
+      max-parallel: 3
+      matrix:
+        # boards: ["macos", "sim-01", "sim-02", "sim-03"]
+        # boards: ["macos", "xtensa-01", "xtensa-02"]
+        boards: ["macos"]
+    steps:
+      - name: Download Source Artifact
+        uses: actions/download-artifact@v6
+        with:
+          name: source-bundle
+          path: .
+
+      - name: Extract sources
+        run: tar zxf sources.tar.gz
+
+      - name: Restore Tools Cache
+        id: cache-tools
+        uses: actions/cache@v4
+        env:
+          cache-name: ${{ runner.os }}-cache-tools
+        with:
+          path: ./sources/tools
+          key: ${{ runner.os }}-tools-${{ hashFiles('./sources/nuttx/tools/ci/cibuild.sh') }}
+
+      - name: Export NuttX Repo SHA
+        run: echo "nuttx_sha=`git -C sources/nuttx rev-parse HEAD`" >> $GITHUB_ENV
+
+      # Released version of Cython has issues with Python 11. Set runner to use Python 3.10
+      # https://github.com/cython/cython/issues/4500
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.10'
+      - name: Run Builds
+        run: |
+          echo "::add-matcher::sources/nuttx/.github/gcc.json"
+          export ARTIFACTDIR=`pwd`/buildartifacts
+          cd sources/nuttx/tools/ci
+          ./cibuild.sh -i -c -A -R -S testlist/${{matrix.boards}}.dat
+
+      - uses: actions/upload-artifact@v5
+        with:
+          name: macos-${{matrix.boards}}-builds
+          path: buildartifacts/
+        continue-on-error: true
