@@ -29,7 +29,7 @@ jobs:
         run: |
           brew --version
           # brew tap homebrew/versions
-          cd /usr/local
+          cd /usr/local/Homebrew
           ls -la
           git checkout 4.6.3
           curl -O -L -s https://github.com/osx-cross/homebrew-avr/archive/refs/tags/avr-gcc@9-9.4.0_1.tar.gz
