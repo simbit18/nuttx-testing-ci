@@ -28,7 +28,7 @@ jobs:
       - name: Run Builds
         run: |
           brew --version
-          brew tap homebrew/versions
+          # brew tap homebrew/versions
           cd /usr/local
           ls -la
           git checkout 4.6.3
