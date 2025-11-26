@@ -38,19 +38,19 @@ jobs:
           REF="refs/heads/master"
           echo "Working with ref: $REF"
       - name: Checkout nuttx repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: simbit18/nuttx
-          ref: simbit18-darwin
+          ref: smbit18-macOS14
           path: sources/nuttx
           fetch-depth: 1
       - name: Checkout nuttx repo tags
         run: git -C sources/nuttx fetch --tags
 
       - name: Checkout apps repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
-          repository: simbit18/nuttx-apps
+          repository: apache/nuttx-apps
           ref: master
           path: sources/apps
           fetch-depth: 1
@@ -59,7 +59,7 @@ jobs:
         run: tar zcf sources.tar.gz sources
 
       - name: Archive Source Bundle
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: source-bundle
           path: sources.tar.gz
@@ -72,10 +72,11 @@ jobs:
       max-parallel: 3
       matrix:
         # boards: ["macos", "sim-01", "sim-02", "sim-03"]
-        boards: ["macos", "xtensa-01", "xtensa-02"]
+        # boards: ["macos", "xtensa-01", "xtensa-02"]
+        boards: ["macos"]
     steps:
       - name: Download Source Artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v6
         with:
           name: source-bundle
           path: .
@@ -97,7 +98,7 @@ jobs:
 
       # Released version of Cython has issues with Python 11. Set runner to use Python 3.10
       # https://github.com/cython/cython/issues/4500
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.10'
       - name: Run Builds
@@ -107,7 +108,7 @@ jobs:
           cd sources/nuttx/tools/ci
           ./cibuild.sh -i -c -A -R -S testlist/${{matrix.boards}}.dat
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: macos-${{matrix.boards}}-builds
           path: buildartifacts/
