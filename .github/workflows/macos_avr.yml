@@ -59,7 +59,7 @@ jobs:
           ls -la
           export HOMEBREW_NO_INSTALL_FROM_API=1
           #env
-          brew tap osx-cross/avr
+          # brew tap osx-cross/avr
           cd homebrew-avr-avr-gcc-9-9.4.0_1/Formula
           brew install --formula ./avr-binutils.rb
           brew install --formula ./Formula/avr-gcc@9.rb
