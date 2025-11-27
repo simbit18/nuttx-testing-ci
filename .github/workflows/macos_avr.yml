@@ -38,7 +38,11 @@ jobs:
           cd homebrew-avr-avr-gcc-9-9.4.0_1/Formula
           brew install --formula ./avr-binutils.rb
           brew install --formula ./avr-gcc@9.rb
+          cd ../..
+          rm -f avr-gcc@9-9.4.0_1.tar.gz
+          rm -fr homebrew-avr-avr-gcc-9-9.4.0_1
           git checkout main
+          ls -la
           # 2
           # brew tap osx-cross/avr
           # brew info avr-gcc
@@ -60,9 +64,9 @@ jobs:
           export HOMEBREW_NO_INSTALL_FROM_API=1
           #env
           cd homebrew-avr-avr-gcc-9-9.4.0_1/Formula
-          brew tap osx-cross/avr
-          brew install --formula ./avr-binutils.rb
-          brew install --formula ./Formula/avr-gcc@9.rb
-          export HOMEBREW_NO_INSTALL_FROM_API=0
-          env
-          command avr-gcc --version
+          # brew tap osx-cross/avr
+          # brew install --formula ./avr-binutils.rb
+          # brew install --formula ./Formula/avr-gcc@9.rb
+          # export HOMEBREW_NO_INSTALL_FROM_API=0
+          # env
+          # command avr-gcc --version
