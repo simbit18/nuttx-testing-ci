@@ -22,12 +22,13 @@ permissions:
   contents: read
 
 jobs:
-  macOS15:
+  macOS1_15:
     runs-on: macos-15-intel
     steps:
       - name: Run Builds
         run: |
           brew --version
+          # 1
           cd /usr/local/Homebrew
           ls -la
           git checkout 4.6.3
@@ -35,13 +36,32 @@ jobs:
           tar zxf avr-gcc@9-9.4.0_1.tar.gz
           ls -la
           cd homebrew-avr-avr-gcc-9-9.4.0_1/Formula
-          # brew tap osx-cross/avr
-          # brew info avr-gcc
-          # cd Formula
           brew install --formula ./avr-binutils.rb
           brew install --formula ./avr-gcc@9.rb
           git checkout main
+          # 2
+          # brew tap osx-cross/avr
+          # brew info avr-gcc
           # brew install --formula ./Formula/avr-gcc@9.rb
           # brew tap osx-cross/avr-gcc@9-9.4.0_1
           # brew install avr-gcc
+          command avr-gcc --version
+  macOS2_15:
+    runs-on: macos-15-intel
+    steps:
+      - name: Run Builds
+        run: |
+          brew --version
+          # 2
+          env
+          curl -O -L -s https://github.com/osx-cross/homebrew-avr/archive/refs/tags/avr-gcc@9-9.4.0_1.tar.gz
+          tar zxf avr-gcc@9-9.4.0_1.tar.gz
+          ls -la
+          export HOMEBREW_NO_INSTALL_FROM_API=1
+          env
+          cd homebrew-avr-avr-gcc-9-9.4.0_1/Formula
+          brew install --formula ./avr-binutils.rb
+          brew install --formula ./Formula/avr-gcc@9.rb
+          export HOMEBREW_NO_INSTALL_FROM_API=1
+          env
           command avr-gcc --version
