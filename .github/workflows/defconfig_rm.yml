@@ -80,9 +80,6 @@ jobs:
       - name: Show disk usage
         run: df -h
 
-      - name: Detailed file sizes
-        run: find / -type f -exec du -h {} + 2>/dev/null | sort -hr | head -n 1000
-
       - name: Download Source Artifact
         uses: actions/download-artifact@v6
         with:
@@ -113,26 +110,13 @@ jobs:
           run: |
             echo "Job: ${{ env.GH_JOB_NAME }}"
             echo "::add-matcher::sources/nuttx/.github/gcc.json"
-            export ARTIFACTDIR=`pwd`/buildartifacts
-            echo "ARTIFACTDIR: $ARTIFACTDIR"
             git config --global --add safe.directory /github/workspace/sources/nuttx
             git config --global --add safe.directory /github/workspace/sources/apps
             cd sources/nuttx
             ./tools/configure.sh -l ${{ env.BOARD_CONFIG_NAME }}
             make -j
-            # make V=1
+            echo ".:Show disk usage:."
             df -h
-            artifactconfigdir=$ARTIFACTDIR/$(echo ${{ env.BOARD_CONFIG_NAME }} | sed "s/:/\//")/
-            echo "artifactconfigdir: $artifactconfigdir"
-            mkdir -p $artifactconfigdir
-            xargs -I "{}" cp "{}" $artifactconfigdir < nuttx.manifest
-
-      - uses: actions/upload-artifact@v5
-        if: ${{ always() }}
-        with:
-          name: linux-${{ github.job }}-builds
-          path: buildartifacts/
-        continue-on-error: true
 
   LinuxCleanup:
     needs: Fetch-Source
@@ -144,9 +128,6 @@ jobs:
     steps:
       - name: Show disk usage
         run: df -h
-
-      - name: Detailed file sizes
-        run: find / -type f -exec du -h {} + 2>/dev/null | sort -hr | head -n 1000
 
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -166,11 +147,6 @@ jobs:
           large-packages: false
           docker-images: false
           swap-storage: false
-      # - name: Cleanup
-      #  uses: actions/checkout@v6
-      #  run: |
-        # Remove mysql
-      #  sudo apt-get remove -y '^mysql-.*' --fix-missing || echo "::warning::The command [sudo apt-get remove -y '^mysql-.*' --fix-missing] failed to complete successfully. Proceeding..."
 
       - name: Download Source Artifact
         uses: actions/download-artifact@v6
@@ -202,23 +178,10 @@ jobs:
           run: |
             echo "Job: ${{ env.GH_JOB_NAME }}"
             echo "::add-matcher::sources/nuttx/.github/gcc.json"
-            export ARTIFACTDIR=`pwd`/buildartifacts
-            echo "ARTIFACTDIR: $ARTIFACTDIR"
             git config --global --add safe.directory /github/workspace/sources/nuttx
             git config --global --add safe.directory /github/workspace/sources/apps
             cd sources/nuttx
             ./tools/configure.sh -l ${{ env.BOARD_CONFIG_NAME }}
             make -j
+            echo ".:Show disk usage:."
             df -h
-            # make V=1
-            artifactconfigdir=$ARTIFACTDIR/$(echo ${{ env.BOARD_CONFIG_NAME }} | sed "s/:/\//")/
-            echo "artifactconfigdir: $artifactconfigdir"
-            mkdir -p $artifactconfigdir
-            xargs -I "{}" cp "{}" $artifactconfigdir < nuttx.manifest
-
-      - uses: actions/upload-artifact@v5
-        if: ${{ always() }}
-        with:
-          name: linux-${{ github.job }}-builds
-          path: buildartifacts/
-        continue-on-error: true
