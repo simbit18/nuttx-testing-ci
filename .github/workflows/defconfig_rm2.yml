@@ -129,7 +129,7 @@ jobs:
       - name: Show disk usage
         run: df -h
 
-     - name: Free Disk Space (Ubuntu)
+      - name: Free Disk Space (Ubuntu)
         run: |
           sudo rm -rf /usr/local/lib/android
 
