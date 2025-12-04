@@ -116,9 +116,9 @@ jobs:
             ./tools/configure.sh -l ${{ env.BOARD_CONFIG_NAME }}
             make -j
 
-       - name: Post-build Disk Space
-         if: always()
-         run: df -h
+      - name: Post-build Disk Space
+        if: always()
+        run: df -h
 
   LinuxCleanup:
     needs: Fetch-Source
