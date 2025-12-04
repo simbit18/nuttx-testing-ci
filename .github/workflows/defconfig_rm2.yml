@@ -117,8 +117,8 @@ jobs:
             make -j
 
        - name: Post-build Disk Space
-        if: always()
-        run: df -h
+         if: always()
+         run: df -h
 
   LinuxCleanup:
     needs: Fetch-Source
