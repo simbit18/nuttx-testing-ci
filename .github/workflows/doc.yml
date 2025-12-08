@@ -13,6 +13,7 @@
 
 name: "Build Documentation"
 
+on:
   workflow_dispatch:
   push:
     paths:
