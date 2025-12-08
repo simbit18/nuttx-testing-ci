@@ -20,7 +20,7 @@ on:
       - '.github/workflows/doc.yml'
 env:
    REPO_NUTTX_NAME: simbi18/nuttx
-   REF_NUTTX_NAME: python
+   REF_NUTTX_NAME: simbi18-python
    REPO_APPS_NAME: apache/nuttx-apps
    REF_APPS_NAME: master
    PYTHON_VERSION: '3.8'
