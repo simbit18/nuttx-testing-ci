@@ -1,0 +1,101 @@
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+---
+name: "Build Documentation"
+
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/doc.yml'
+env:
+   REPO_NUTTX_NAME: simbi18/nuttx
+   REF_NUTTX_NAME: python
+   REPO_APPS_NAME: apache/nuttx-apps
+   REF_APPS_NAME: master
+   PYTHON_VERSION: '3.8'
+
+
+concurrency:
+  group: docs-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  Fetch-Source:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Determine Target Branches
+        id: gittargets
+        shell: bash
+        run: |
+          OS_REF=""
+          APPS_REF=""
+          REF="refs/heads/master"
+          echo "Working with ref: $REF"
+      - name: Checkout nuttx repo
+        uses: actions/checkout@v6
+        with:
+          repository: ${{ env.REPO_NUTTX_NAME }}
+          ref: ${{ env.REF_NUTTX_NAME }}
+          path: sources/nuttx
+          fetch-depth: 1
+      - name: Checkout nuttx repo tags
+        run: git -C sources/nuttx fetch --tags
+
+      - name: Checkout apps repo
+        uses: actions/checkout@v6
+        with:
+          repository: ${{ env.REPO_APPS_NAME }}
+          ref: ${{ env.REF_APPS_NAME }}
+          path: sources/apps
+          fetch-depth: 1
+
+      - name: Tar sources
+        run: tar zcf sources.tar.gz sources
+
+      - name: Archive Source Bundle
+        uses: actions/upload-artifact@v5
+        with:
+          name: source-bundle
+          path: sources.tar.gz
+  build-html:
+    needs: Fetch-Source
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Source Artifact
+        uses: actions/download-artifact@v6
+        with:
+          name: source-bundle
+          path: .
+
+      - name: Extract sources
+        run: tar zxf sources.tar.gz
+
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - name: Generate Documentation
+        run: |
+          cd cd sources/nuttx/Documentation/
+          pip3 install pipenv
+          pipenv install
+          pipenv run make html
+      - uses: actions/upload-artifact@v5
+        with:
+          name: sphinx-docs
+          path: |
+            Documentation/_build/html/
+            Documentation/_build/latex/*.pdf
