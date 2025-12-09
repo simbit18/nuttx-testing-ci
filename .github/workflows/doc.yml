@@ -37,15 +37,6 @@ jobs:
   build-html:
     runs-on: ubuntu-latest
     steps:
-      - name: Download Source Artifact
-        uses: actions/download-artifact@v6
-        with:
-          name: source-bundle
-          path: .
-
-      - name: Extract sources
-        run: tar zxf sources.tar.gz
-
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
         with:
