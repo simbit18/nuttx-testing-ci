@@ -90,7 +90,8 @@ jobs:
           python-version: '${{ env.PYTHON_VERSION }}'
       - name: Generate Documentation
         run: |
-          cd sources/nuttx/Documentation/
+          ls -la
+          cd sources/nuttx/Documentation
           pip3 install pipenv
           pipenv install
           pipenv run make html
