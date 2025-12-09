@@ -23,7 +23,7 @@ env:
    REF_NUTTX_NAME: simbi18-python
    REPO_APPS_NAME: apache/nuttx-apps
    REF_APPS_NAME: master
-   PYTHON_VERSION: '3.9'
+   PYTHON_VERSION: '3.10'
 
 
 concurrency:
@@ -58,4 +58,3 @@ jobs:
           name: sphinx-docs
           path: |
             Documentation/_build/html/
-            Documentation/_build/latex/*.pdf
