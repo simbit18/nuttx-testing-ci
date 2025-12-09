@@ -43,7 +43,7 @@ jobs:
         run: |
           OS_REF=""
           APPS_REF=""
-          REF="refs/heads/master"
+          REF="refs/heads/${{ env.REPO_NUTTX_NAME }}"
           echo "Working with ref: $REF"
       - name: Checkout nuttx repo
         uses: actions/checkout@v6
