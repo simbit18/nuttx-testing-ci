@@ -91,7 +91,7 @@ jobs:
       - name: Generate Documentation
         run: |
           ls -la
-          cd sources/nuttx/Documentation
+          cd nuttx/Documentation/
           pip3 install pipenv
           pipenv install
           pipenv run make html
