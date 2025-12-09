@@ -58,3 +58,4 @@ jobs:
           name: sphinx-docs
           path: |
             Documentation/_build/html/
+        continue-on-error: true
