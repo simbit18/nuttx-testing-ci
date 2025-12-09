@@ -23,7 +23,7 @@ env:
    REF_NUTTX_NAME: simbi18-python
    REPO_APPS_NAME: apache/nuttx-apps
    REF_APPS_NAME: master
-   PYTHON_VERSION: '3.10'
+   PYTHON_VERSION: '3.9'
 
 
 concurrency:
@@ -40,7 +40,7 @@ jobs:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
         with:
-          python-version: '3.9'
+          python-version: ${{ env.PYTHON_VERSION }}
       - name: Generate Documentation
         run: |
           mkdir -p nuttxspace
