@@ -34,45 +34,7 @@ permissions:
   contents: read
 
 jobs:
-  Fetch-Source:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Determine Target Branches
-        id: gittargets
-        shell: bash
-        run: |
-          OS_REF=""
-          APPS_REF=""
-          REF="refs/heads/master"
-          echo "Working with ref: $REF"
-      - name: Checkout nuttx repo
-        uses: actions/checkout@v6
-        with:
-          repository: ${{ env.REPO_NUTTX_NAME }}
-          ref: ${{ env.REF_NUTTX_NAME }}
-          path: sources/nuttx
-          fetch-depth: 1
-      - name: Checkout nuttx repo tags
-        run: git -C sources/nuttx fetch --tags
-
-      - name: Checkout apps repo
-        uses: actions/checkout@v6
-        with:
-          repository: ${{ env.REPO_APPS_NAME }}
-          ref: ${{ env.REF_APPS_NAME }}
-          path: sources/apps
-          fetch-depth: 1
-
-      - name: Tar sources
-        run: tar zcf sources.tar.gz sources
-
-      - name: Archive Source Bundle
-        uses: actions/upload-artifact@v5
-        with:
-          name: source-bundle
-          path: sources.tar.gz
   build-html:
-    needs: Fetch-Source
     runs-on: ubuntu-latest
     steps:
       - name: Download Source Artifact
@@ -90,8 +52,13 @@ jobs:
           python-version: '${{ env.PYTHON_VERSION }}'
       - name: Generate Documentation
         run: |
+          mkdir -p nuttxspace
+          cd nuttxspace
+          git clone --depth 1 --branch ${{ env.REF_NUTTX_NAME }} https://github.com/simbit18/nuttx.git nuttx
+          git clone --depth 1 --branch ${{ env.REF_APPS_NAME }} https://github.com/simbit18/nuttx-apps.git apps
           ls -la
           cd nuttx/Documentation/
+          ls -la
           pip3 install pipenv
           pipenv install
           pipenv run make html
