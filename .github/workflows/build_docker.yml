@@ -117,23 +117,23 @@ jobs:
 
 
       - name: Run builds
-        uses: ./simbit18/nuttx-testing-ci/.github/actions/ci-container
-        env:
-          BLOBDIR: /tools/blobs
-        with:
-          run: |
-            echo "::add-matcher::sources/nuttx/.github/gcc.json"
-            export ARTIFACTDIR=`pwd`/buildartifacts
-            git config --global --add safe.directory '*'
-            ## git config --global --add safe.directory /github/workspace/sources/nuttx
-            ## git config --global --add safe.directory /github/workspace/sources/apps
-            cd sources/nuttx/tools/ci
-            if [ "X${{matrix.boards}}" = "Xcodechecker" ]; then
-                ./cibuild.sh -c -A -N -R -S --codechecker testlist/${{matrix.boards}}.dat
-            else
-                ( sleep 7200 ; echo Killing pytest after timeout... ; pkill -f pytest )&
-                ./cibuild.sh -c -A -N -R -S testlist/${{matrix.boards}}.dat
-            fi
+        # uses: ./simbit18/nuttx-testing-ci/.github/actions/ci-container
+        # env:
+          # BLOBDIR: /tools/blobs
+        # with:
+        run: |
+          echo "::add-matcher::sources/nuttx/.github/gcc.json"
+          export ARTIFACTDIR=`pwd`/buildartifacts
+          git config --global --add safe.directory '*'
+          ## git config --global --add safe.directory /github/workspace/sources/nuttx
+          ## git config --global --add safe.directory /github/workspace/sources/apps
+          cd sources/nuttx/tools/ci
+          if [ "X${{matrix.boards}}" = "Xcodechecker" ]; then
+              ./cibuild.sh -c -A -N -R -S --codechecker testlist/${{matrix.boards}}.dat
+          else
+              ( sleep 7200 ; echo Killing pytest after timeout... ; pkill -f pytest )&
+              ./cibuild.sh -c -A -N -R -S testlist/${{matrix.boards}}.dat
+          fi
 
       - name: Post-build Disk Space
         if: always()
