@@ -205,16 +205,16 @@ RUN apt-get update -qq && DEBIAN_FRONTEND="noninteractive" apt-get install -y -q
 # Download toolchain source code
 RUN mkdir -p /tools/renesas-tools/source/binutils && \
   curl -s -L "https://llvm-gcc-renesas.com/downloads/d.php?f=rx/binutils/8.3.0.202305-gnurx/binutils-2.36.1.tar.gz" \
-  | tar -C renesas-tools/source/binutils --strip-components=1 -xz
+  | tar -C /tools/renesas-tools/source/binutils --strip-components=1 -xz
 RUN mkdir -p /tools/renesas-tools/source/gcc && \
   curl -s -L "https://llvm-gcc-renesas.com/downloads/d.php?f=rx/gcc/8.3.0.202305-gnurx/gcc-8.3.0.tar.gz" \
-  | tar -C renesas-tools/source/gcc --strip-components=1 -xz
+  | tar -C /tools/renesas-tools/source/gcc --strip-components=1 -xz
 RUN mkdir -p /tools/renesas-tools/source/newlib && \
   curl -s -L "https://llvm-gcc-renesas.com/downloads/d.php?f=rx/newlib/8.3.0.202305-gnurx/newlib-4.1.0.tar.gz" \
-  | tar -C renesas-tools/source/newlib --strip-components=1 -xz
+  | tar -C /tools/renesas-tools/source/newlib --strip-components=1 -xz
 
 # Install binutils
-RUN cd renesas-tools/source/binutils && \
+RUN cd /tools/renesas-tools/source/binutils && \
   chmod +x ./configure ./mkinstalldirs && \
   mkdir -p /tools/renesas-tools/build/binutils && cd /tools/renesas-tools/build/binutils && \
   /tools/renesas-tools/source/binutils/configure --target=rx-elf --prefix=/tools/renesas-toolchain/rx-elf-gcc --disable-werror &&\
@@ -222,7 +222,7 @@ RUN cd renesas-tools/source/binutils && \
 ENV PATH="/tools/renesas-toolchain/rx-elf-gcc/bin:$PATH"
 
 # Install gcc
-RUN cd renesas-tools/source/gcc && \
+RUN cd /tools/renesas-tools/source/gcc && \
   chmod +x ./contrib/download_prerequisites ./configure ./move-if-change ./libgcc/mkheader.sh && \
   ./contrib/download_prerequisites && \
   sed -i '1s/^/@documentencoding ISO-8859-1\n/' ./gcc/doc/gcc.texi && \
@@ -235,7 +235,7 @@ RUN cd renesas-tools/source/gcc && \
 ENV PATH="/tools/renesas-toolchain/rx-elf-gcc/bin:$PATH"
 
 # Install newlib
-RUN cd renesas-tools/source/newlib && \
+RUN cd /tools/renesas-tools/source/newlib && \
   chmod +x ./configure && \
   mkdir -p /tools/renesas-tools/build/newlib && cd /tools/renesas-tools/build/newlib && \
   /tools/renesas-tools/source/newlib/configure --target=rx-elf --prefix=/tools/renesas-toolchain/rx-elf-gcc && \
