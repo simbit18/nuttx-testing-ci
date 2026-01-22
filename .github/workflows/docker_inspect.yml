@@ -56,7 +56,7 @@ jobs:
         run: |
           docker images
           # docker inspect ghcr.io ghcr.io/NAMESPACE/IMAGE_NAME:2.5
-          docker inspect ${{ env.IMAGE_TAG }}
+          docker inspect ghcr.io/simbit18/apache-nuttx-ci-linux:latest
       -
         name: Hystory
         run: |
