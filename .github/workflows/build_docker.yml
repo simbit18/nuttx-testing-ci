@@ -57,8 +57,8 @@ jobs:
           ls -a
           ls -a ${{ github.workspace }}
           
-          ls -a source/nuttx/.github/actions/ci-container/action.yaml
-          sed -i 's#/apache/nuttx#/simbit18/nuttx-testing-ci#g' source/nuttx/.github/actions/ci-container/action.yaml
+          ls -a sources/nuttx/.github/actions/ci-container/action.yaml
+          sed -i 's#/apache/nuttx#/simbit18/nuttx-testing-ci#g' sources/nuttx/.github/actions/ci-container/action.yaml
       - name: Checkout apps repo
         uses: actions/checkout@v6
         with:
@@ -111,12 +111,12 @@ jobs:
       - name: Extract sources
         run: tar zxf sources.tar.gz
 
-      - name: copy 
-        run: |
-          ls -a
-          ls -a ${{ github.workspace }}
-          ls ../nuttx-testing-ci/ -a
-          cp -f ../.github/actions/ci-container/action.yaml ./sources/nuttx/.github/actions/ci-container/action.yaml
+      # - name: copy 
+        # run: |
+          # ls -a
+          # ls -a ${{ github.workspace }}
+          # ls ../nuttx-testing-ci/ -a
+          # cp -f ../.github/actions/ci-container/action.yaml ./sources/nuttx/.github/actions/ci-container/action.yaml
       - name: Docker Login
         uses: docker/login-action@v3
         with:
