@@ -77,10 +77,10 @@ jobs:
       - name: Pre-build Disk Stats
         run: |
           df -h
-      - name: Push Linux image
+      - name: Push Alpine image
         uses: docker/build-push-action@v6
         with:
-          context: tools/ci/docker/alpine
+          context: "{{defaultContext}}:tools/ci/docker/alpine"
           push: ${{ github.ref == 'refs/heads/master' }}
           tags: ${{ env.IMAGE_TAG }}
       - name: Post-build Disk Stats
