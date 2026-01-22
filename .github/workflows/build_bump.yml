@@ -67,9 +67,9 @@ jobs:
 
       - name: Replace repository
         run: |
-          echo "Replace repository: ${{ env.REPO_NUTTX_NAME }}"
+          echo "Replace repository: ${{ env.IMAGE_NAME }}"
           # nuttx/nuttx-docker-testing
-          sed -i 's#/apache/nuttx#/${{ env.REPO_NUTTX_NAME }}#g' sources/nuttx/.github/actions/ci-container/action.yaml
+          sed -i 's#/apache/nuttx#/${{ env.IMAGE_NAME }}#g' sources/nuttx/.github/actions/ci-container/action.yaml
  
       - name: Tar sources
         run: tar zcf sources.tar.gz sources
@@ -120,7 +120,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Docker Pull
-        run: docker pull ghcr.io/${{ env.REPO_NUTTX_NAME }}/apache-nuttx-ci-linux:latest
+        run: docker pull ghcr.io/${{ env.IMAGE_NAME }}/apache-nuttx-ci-linux:latest
       - name: Run builds
         uses: ./sources/nuttx/.github/actions/ci-container
         env:
