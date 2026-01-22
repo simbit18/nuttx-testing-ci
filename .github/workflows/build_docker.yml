@@ -52,13 +52,7 @@ jobs:
           fetch-depth: 1
       - name: Checkout nuttx repo tags
         run: git -C sources/nuttx fetch --tags
-      - name: replace 
-        run: |
-          ls -a
-          ls -a ${{ github.workspace }}
-          
-          ls -a sources/nuttx/.github/actions/ci-container/action.yaml
-          sed -i 's#/apache/nuttx#/simbit18/nuttx-testing-ci#g' sources/nuttx/.github/actions/ci-container/action.yaml
+
       - name: Checkout apps repo
         uses: actions/checkout@v6
         with:
@@ -70,6 +64,14 @@ jobs:
           path: sources/apps
           fetch-depth: 1
 
+      - name: replace 
+        run: |
+          ls -a
+          ls -a ${{ github.workspace }}
+          ls -a sources
+          ls -a sources/nuttx/.github/actions/ci-container/action.yaml
+          sed -i 's#/apache/nuttx#/simbit18/nuttx-testing-ci#g' sources/nuttx/.github/actions/ci-container/action.yaml
+ 
       - name: Tar sources
         run: tar zcf sources.tar.gz sources
 
