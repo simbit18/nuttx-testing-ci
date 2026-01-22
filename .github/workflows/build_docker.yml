@@ -88,6 +88,7 @@ jobs:
       DOCKER_BUILDKIT: 1
 
     strategy:
+      fail-fast: false
       matrix:
         boards:
          [
@@ -113,12 +114,6 @@ jobs:
       - name: Extract sources
         run: tar zxf sources.tar.gz
 
-      # - name: copy 
-        # run: |
-          # ls -a
-          # ls -a ${{ github.workspace }}
-          # ls ../nuttx-testing-ci/ -a
-          # cp -f ../.github/actions/ci-container/action.yaml ./sources/nuttx/.github/actions/ci-container/action.yaml
       - name: Docker Login
         uses: docker/login-action@v3
         with:
@@ -128,7 +123,6 @@ jobs:
 
       - name: Docker Pull
         run: docker pull ghcr.io/simbit18/nuttx-testing-ci/apache-nuttx-ci-linux
-
 
       - name: Run builds
         # uses: ./simbit18/nuttx-testing-ci/.github/actions/ci-container
@@ -147,7 +141,7 @@ jobs:
                 ./cibuild.sh -c -A -N -R -S --codechecker testlist/${{matrix.boards}}.dat
             else
                 ( sleep 7200 ; echo Killing pytest after timeout... ; pkill -f pytest )&
-                ./cibuild.sh -c -A -N -R -S testlist/${{matrix.boards}}.dat
+                ./cibuild.sh -c -A -C -N -R -S testlist/${{matrix.boards}}.dat
             fi
 
       - name: Post-build Disk Space
