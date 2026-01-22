@@ -17,16 +17,17 @@ on:
   push:
     # Publish `master` as Docker `latest` image.
     branches:
-      - main
+      - master
     paths:
-      - 'tools/**'
+      - 'tools/ci/docker/bump/**'
       - '.github/workflows/docker_linux.yml'
 
   # Run builds for any PRs.
   pull_request:
     paths:
-      - 'tools/**'
+      - 'tools/ci/docker/bump/**'
       - '.github/workflows/docker_linux.yml'
+
 
 env:
   IMAGE_NAME: apache-nuttx-ci-linux
@@ -47,7 +48,7 @@ jobs:
       IMAGE_TAG: ghcr.io/${{ github.repository }}/apache-nuttx-ci-linux
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Free Disk Space (Ubuntu)
         uses: ./.github/actions/free-disk-space
@@ -78,11 +79,11 @@ jobs:
         run: |
           df -h
       - name: Push Linux image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
-          context: tools
+          context: tools/ci/docker/bump
           platforms: linux/amd64
-          push: ${{ github.ref == 'refs/heads/main' }}
+          push: ${{ github.ref == 'refs/heads/master' }}
           tags: ${{ env.IMAGE_TAG }}
       - name: Post-build Disk Stats
         if: always()
