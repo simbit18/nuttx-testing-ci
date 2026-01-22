@@ -52,10 +52,13 @@ jobs:
           fetch-depth: 1
       - name: Checkout nuttx repo tags
         run: git -C sources/nuttx fetch --tags
-      - name: copy 
+      - name: replace 
         run: |
           ls -a
           ls -a ${{ github.workspace }}
+          
+          ls -a source/nuttx/.github/actions/ci-container/action.yaml
+          sed -i 's#/apache/nuttx#/simbit18/nuttx-testing-ci#g' source/nuttx/.github/actions/ci-container/action.yaml
       - name: Checkout apps repo
         uses: actions/checkout@v6
         with:
@@ -127,7 +130,7 @@ jobs:
 
       - name: Run builds
         # uses: ./simbit18/nuttx-testing-ci/.github/actions/ci-container
-        uses: ./.github/actions/ci-container
+        uses: ./sources/nuttx/.github/actions/ci-container
         env:
           BLOBDIR: /tools/blobs
         with:
