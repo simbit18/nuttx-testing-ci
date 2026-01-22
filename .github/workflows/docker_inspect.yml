@@ -60,5 +60,5 @@ jobs:
       -
         name: Hystory
         run: |
-          docker buildx imagetools history ghcr.io/simbit18/nuttx-testing-ci/apache-nuttx-ci-alpine:latest
+          docker buildx history inspect ghcr.io/simbit18/nuttx-testing-ci/apache-nuttx-ci-alpine:latest
           # docker pull ghcr.io/simbit18/nuttx-testing-ci/apache-nuttx-ci-linux:latest
