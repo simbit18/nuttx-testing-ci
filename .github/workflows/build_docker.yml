@@ -54,7 +54,7 @@ jobs:
         run: git -C sources/nuttx fetch --tags
       - name: copy 
         run: |
-          ls -a
+          ls ../ -a
           cp -f ../.github/actions/ci-container/action.yaml ./sources/nuttx/.github/actions/ci-container/action.yaml
 
       - name: Checkout apps repo
