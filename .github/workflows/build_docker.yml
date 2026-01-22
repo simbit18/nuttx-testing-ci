@@ -52,7 +52,10 @@ jobs:
           fetch-depth: 1
       - name: Checkout nuttx repo tags
         run: git -C sources/nuttx fetch --tags
-
+      - name: copy 
+        run: |
+          ls -a
+          ls -a ${{ github.workspace }}
       - name: Checkout apps repo
         uses: actions/checkout@v6
         with:
@@ -108,6 +111,7 @@ jobs:
       - name: copy 
         run: |
           ls -a
+          ls -a ${{ github.workspace }}
           ls ../nuttx-testing-ci/ -a
           cp -f ../.github/actions/ci-container/action.yaml ./sources/nuttx/.github/actions/ci-container/action.yaml
       - name: Docker Login
