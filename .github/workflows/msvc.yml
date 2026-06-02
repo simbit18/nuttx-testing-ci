@@ -26,6 +26,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # Fetch the source from nuttx and nuttx-apps repos                                                    
   Fetch-Source:
     runs-on: ubuntu-latest
     steps:
@@ -38,19 +39,19 @@ jobs:
           REF="refs/heads/master"
           echo "Working with ref: $REF"
       - name: Checkout nuttx repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
-          repository: jasonbu/nuttx
-          ref: sim_cmake
+          repository: simbit18/nuttx
+          ref: simbit18-windows-2022
           path: sources/nuttx
           fetch-depth: 1
       - name: Checkout nuttx repo tags
         run: git -C sources/nuttx fetch --tags
 
       - name: Checkout apps repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
-          repository: simbit18/nuttx-apps
+          repository: apache/nuttx-apps
           ref: master
           path: sources/apps
           fetch-depth: 1
@@ -59,20 +60,20 @@ jobs:
         run: tar zcf sources.tar.gz sources
 
       - name: Archive Source Bundle
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: source-bundle
           path: sources.tar.gz
   msvc:
     needs: Fetch-Source
-    runs-on: windows-latest
+    runs-on: windows-2022
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       # Set up Python environment and install kconfiglib
       - name: Set up Python and install kconfiglib
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
-          python-version: '3.10'
+          python-version: "3.10"
       - name: Install kconfiglib
         run: |
           pip install kconfiglib
@@ -80,7 +81,7 @@ jobs:
       - run: git config --global core.autocrlf false
 
       - name: Download Source Artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: source-bundle
           path: .
@@ -88,17 +89,22 @@ jobs:
       - name: Extract sources
         run: |
           7z x sources.tar.gz -y
-          7z x sources.tar -y
+          7z x sources.tar -y -snld
 
       # Build the project using the given CMake commands
       - name: Configure and build with CMake
         run: |
-          cd sources/nuttx
-          cmake -B vs2022 -DBOARD_CONFIG=sim/windows -G"Visual Studio 17 2022" -A Win32
-          cmake --build vs2022
-      - uses: actions/upload-artifact@v4
+          "ARTIFACTDIR=${{github.workspace}}\sources\buildartifacts" >> $env:GITHUB_ENV
+          git config --global core.autocrlf false
+          git config --global core.longpaths true
+          git config --global --add safe.directory ${{github.workspace}}\sources\nuttx
+          git config --global --add safe.directory ${{github.workspace}}\sources\apps
+          cd sources\nuttx\tools\ci
+          .\cibuild.ps1 -n -i -A -C -N testlist\windows.dat
+
+      - uses: actions/upload-artifact@v7.0.1
         with:
-          name: msvc-${{matrix.boards}}-builds
-          path: buildartifacts/
+          name: msvc-builds
+          path: ./sources/buildartifacts/
         continue-on-error: true
 

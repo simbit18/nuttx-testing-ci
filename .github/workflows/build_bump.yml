@@ -10,9 +10,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-name: Build matrix on Docker
+name: Build matrix on Docker bump
 
 on:
+  ## Run every day at 0:30 UTC
+  # schedule:
+  #  - cron: '30 0 * * *'
+
   workflow_dispatch:
   push:
     paths:
@@ -90,7 +94,8 @@ jobs:
       matrix:
         boards:
          [
-          "sim-01"
+          "risc-v-01", "sim-02", "x86_64-01", "other",
+          "arm-11"
          ]
     steps:
       - name: Show Disk Space
